@@ -49,6 +49,22 @@ Button mapping:
   - `python rg_tool.py --target byteboi-rev2 build-img launcher retro-core prboom-go gwenesis fmsx`
   - Result: **4.500 MB** (too large for 4MB flash hardware)
 
+## Pokemon-focused platform selection (GB / GBA)
+- In this repository snapshot:
+  - **GB/GBC** are available via `retro-core` (launcher mapping points `gb`/`gbc` to `retro-core`).
+  - **GBA** launcher entry exists, but points to app partition `gbsp`, and `gbsp` is not present in current `rg_tool.py` app choices.
+  - Ref (launcher mapping): https://github.com/ducalex/retro-go/blob/master/launcher/main/applications.c
+  - Ref (current app choices): https://github.com/ducalex/retro-go/blob/master/rg_tool.py
+
+- Working example today (GB/GBC Pokemon titles):
+  - `python rg_tool.py --target byteboi-rev2 build-img launcher retro-core gwenesis fmsx`
+  - GB/GBC games (including Pokemon GB/GBC titles) run from the `retro-core` app.
+
+- Desired GB + GBA example (requires adding `gbsp` app support first):
+  - `python rg_tool.py --target byteboi-rev2 build-img launcher retro-core gbsp`
+  - If you try this now, `rg_tool.py` rejects `gbsp` as an invalid app choice.
+  - To make it work, add the `gbsp` app implementation to the repo and register it in `PROJECT_APPS` in `rg_tool.py`, then re-run the fit checks.
+
 ## Flashing selected apps (USB)
 - Build + install selected set:
   - `python rg_tool.py --target byteboi-rev2 --port <PORT> install launcher retro-core gwenesis fmsx`
