@@ -75,8 +75,9 @@ Button mapping:
 ## Concrete install steps (ByteBoi Rev2)
 1. Enter the retro-go repo and export ESP-IDF:
    - `cd <path-to-retro-go>`
-   - `source /Users/abossard/esp/esp-idf-v5.1.1/export.sh`
-   - `export PATH=/Users/abossard/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin:$PATH`
+   - `source <path-to-esp-idf>/export.sh`
+   - If `xtensa-esp32-elf` is missing in your shell, add:
+     - `export PATH="$HOME/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin:$PATH"`
 2. Build the default Rev2 image (current default: `launcher retro-core gwenesis fmsx`):
    - `python rg_tool.py --target byteboi-rev2 build-img all`
 3. Connect ByteBoi Rev2 over USB and find the serial port (for example `/dev/cu.usbmodem*` on macOS).
