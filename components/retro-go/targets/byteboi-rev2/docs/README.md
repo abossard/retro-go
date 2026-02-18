@@ -41,7 +41,8 @@ Button mapping:
 ## Verified size examples
 - Fits (default `all` for this target):
   - `python rg_tool.py --target byteboi-rev2 build-img all`
-  - Result: **3.875 MB**
+  - Current default app set: `launcher retro-core gwenesis fmsx`
+  - Result: **3.688 MB**
 - Fits (example **without DOOM**):
   - `python rg_tool.py --target byteboi-rev2 build-img launcher retro-core gwenesis fmsx`
   - Result: **3.688 MB**
@@ -70,6 +71,20 @@ Button mapping:
   - `python rg_tool.py --target byteboi-rev2 --port <PORT> install launcher retro-core gwenesis fmsx`
 - Or flash generated image manually:
   - `esptool.py write_flash --flash_size detect 0x0 retro-go_<version>_byteboi-rev2.img`
+
+## Concrete install steps (ByteBoi Rev2)
+1. Enter the retro-go repo and export ESP-IDF:
+   - `cd <path-to-retro-go>`
+   - `source /Users/abossard/esp/esp-idf-v5.1.1/export.sh`
+   - `export PATH=/Users/abossard/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin:$PATH`
+2. Build the default Rev2 image (current default: `launcher retro-core gwenesis fmsx`):
+   - `python rg_tool.py --target byteboi-rev2 build-img all`
+3. Connect ByteBoi Rev2 over USB and find the serial port (for example `/dev/cu.usbmodem*` on macOS).
+4. Flash directly from sources:
+   - `python rg_tool.py --target byteboi-rev2 --port /dev/cu.usbmodemXXXX install all`
+5. Or flash the generated image file:
+   - `esptool.py --chip esp32 --port /dev/cu.usbmodemXXXX --baud 460800 write_flash --flash_size detect 0x0 retro-go_<version>_byteboi-rev2.img`
+6. Put ROMs on the microSD card in `/retro-go/roms/<system>/` (for example `/retro-go/roms/nes`), then boot the device.
 
 # Images
 ![device.jpg](device.jpg)
