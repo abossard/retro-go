@@ -31,6 +31,14 @@ Button mapping:
 # Notes
 - This target intentionally maps `BTN_C` from ByteBoi firmware semantics to `Select` in retro-go to preserve the same Start/Menu virtual combos used by rev1.
 
+## Display profile (validated on hardware)
+- The working Rev2 profile uses:
+  - `RG_SCREEN_SPI_MODE = 3`
+  - `RG_GPIO_LCD_BCKL = GPIO_NUM_18` + `RG_GPIO_LCD_BCKL_INVERT`
+  - ST7789-oriented `RG_SCREEN_INIT()` register block from `targets/byteboi-rev2/config.h`
+  - `ILI9341_CMD(0x36, 0xA0)` (`MY|MV|RGB`) for correct non-mirrored orientation
+- This resolved the white-screen and rotated/mirrored/glitchy output seen with the previous init profile.
+
 # Flash capacity and app selection
 - This target is currently configured for **4MB flash** (`components/retro-go/targets/byteboi-rev2/sdkconfig`).
 - `.fw` images from SD-card are **not** supported for this target (`FW_FORMAT = "none"` in `env.py`), so use `.img` + USB flashing.
